@@ -4,8 +4,11 @@
            [com.pusher.rest.data Result]))
 
 (defn pusher
-  ^Pusher [creds]
-  (Pusher. (:app-id creds) (:api-key creds) (:api-secret creds)))
+  "Creates a Pusher object."
+  (^Pusher [creds] (pusher creds true))
+  (^Pusher [creds encrypted?]
+   (doto (Pusher. (:app-id creds) (:api-key creds) (:api-secret creds))
+     (.setEncrypted encrypted?))))
 
 (defn result->map
   [^Result result]
