@@ -49,4 +49,8 @@
            (reload)
            (cljs)))
 
+(deftask build
+         []
+         (comp (pom) (jar) (install)))
+
 ;boot watch pom -p pusher -v 0.1.0-SNAPSHOT jar install
