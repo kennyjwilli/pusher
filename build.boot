@@ -1,18 +1,26 @@
+(def project 'pusher)
+(def version "0.1.1")
+
 (set-env!
   :source-paths #{"src" "test"}
-  :resource-paths #{"src" "test" "scss" "bower_components"}
-  :asset-paths #{"html" "bower_components"}
-  :wagons '[[s3-wagon-private "1.1.2"]]
-  :repositories [["clojars" "http://clojars.org/repo/"]
-                 ["maven-central" "http://repo1.maven.org/maven2/"]]
+  :resource-paths #{"src" "test"}
+  :asset-paths #{"html"}
   :dependencies '[[adzerk/boot-cljs "1.7.228-1" :scope "test"]
                   [adzerk/boot-cljs-repl "0.3.0" :scope "test"]
                   [com.cemerick/piggieback "0.2.1" :scope "test"]
                   [weasel "0.7.0" :scope "test"]
                   [org.clojure/tools.nrepl "0.2.12" :scope "test"]
-                  [adzerk/boot-reload "0.4.4" :scope "test"]
-                  [pandeiro/boot-http "0.7.0" :scope "test"]
-                  [cljsjs/boot-cljsjs "0.5.1" :scope "test"]]
+                  [adzerk/boot-reload "0.4.8" :scope "test"]
+                  [pandeiro/boot-http "0.7.3" :scope "test"]
+                  [cljsjs/boot-cljsjs "0.5.1" :scope "test"]
+                  ;;project deps
+                  [org.clojure/clojure "1.8.0"]
+                  [org.clojure/clojurescript "1.8.51"]
+                  [com.pusher/pusher-http-java "1.0.0"]
+                  [com.pusher/pusher-java-client "1.1.3"]
+                  [cheshire "5.6.1"]
+                  [cljsjs/pusher "3.0.0-0"]
+                  [funcool/beicon "1.4.0"]]
   :compiler-options {:compiler-stats true})
 
 (require
@@ -22,21 +30,13 @@
   '[pandeiro.boot-http :refer :all]
   '[cljsjs.boot-cljsjs :refer :all])
 
-(def project (let [p (read-string (slurp "project.clj"))]
-               (into {:project-name (nth p 1)
-                      :version      (nth p 2)}
-                     (map vec (->> p (drop 3) (partition 2))))))
-
-(set-env! :dependencies #(-> project :dependencies vec (into %)))
-
 
 (task-options!
-  pom {:project     (:project-name project)
-       :version     (:version project)
-       :description (:description project)
-       :url         (:url project)
-       :scm         (:scm project)
-       :license     {(:name (:license project)) (:url (:license project))}})
+  pom {:project     project
+       :version     version
+       :description "FIXME: write description"
+       :url         "https://github.com/kennyjwilli/pusher"
+       :license     {"Eclipse Public License" "http://www.eclipse.org/legal/epl-v10.html"}})
 
 (deftask web-dev
          "Developer workflow for web-component UX."
