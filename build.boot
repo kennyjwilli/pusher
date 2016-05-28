@@ -13,6 +13,7 @@
                   [adzerk/boot-reload "0.4.8" :scope "test"]
                   [pandeiro/boot-http "0.7.3" :scope "test"]
                   [cljsjs/boot-cljsjs "0.5.1" :scope "test"]
+                  [adzerk/bootlaces "0.1.13" :scope "test"]
                   ;;project deps
                   [org.clojure/clojure "1.8.0"]
                   [org.clojure/clojurescript "1.8.51"]
@@ -26,9 +27,10 @@
 (require
   '[adzerk.boot-cljs :refer :all]
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
-  '[adzerk.boot-reload :refer :all]
+  '[adzerk.boot-reload :refer [reload]]
   '[pandeiro.boot-http :refer :all]
-  '[cljsjs.boot-cljsjs :refer :all])
+  '[cljsjs.boot-cljsjs :refer :all]
+  '[adzerk.bootlaces :refer [build-jar push-snapshot push-release]])
 
 
 (task-options!
@@ -52,5 +54,9 @@
 (deftask build
          []
          (comp (pom) (jar) (install)))
+
+(deftask release
+         []
+         (comp (build-jar) (push-release)))
 
 ;boot watch pom -p pusher -v 0.1.0-SNAPSHOT jar install

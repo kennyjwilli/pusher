@@ -1,6 +1,8 @@
 # pusher
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure(script) wrapper around Pusher APIs.
+
+[![Clojars Project](https://img.shields.io/clojars/v/pusher.svg)](https://clojars.org/pusher)
 
 ## Usage
 
