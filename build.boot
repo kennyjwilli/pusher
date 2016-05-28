@@ -36,7 +36,7 @@
 (task-options!
   pom {:project     project
        :version     version
-       :description "FIXME: write description"
+       :description "A Clojure(script) wrapper around Pusher APIs."
        :url         "https://github.com/kennyjwilli/pusher"
        :license     {"Eclipse Public License" "http://www.eclipse.org/legal/epl-v10.html"}})
 
